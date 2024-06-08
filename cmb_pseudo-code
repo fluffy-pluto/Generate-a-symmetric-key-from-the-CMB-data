@@ -1,0 +1,29 @@
+BEGIN
+
+IMPORT numpy AS np
+IMPORT sha512 FROM hashlib
+
+FUNCTION simulate_cmb_power_spectrum(size)
+    # Simulate CMB power spectral data with a bell-curve like shape
+    RETURN np.random.normal(size=size)
+END FUNCTION
+
+FUNCTION generate_symmetric_key(cmb_data)
+    # Convert the CMB data to bytes
+    cmb_bytes = cmb_data.tobytes()
+    
+    # Hash the bytes using SHA-512 to generate a symmetric key
+    key = sha512(cmb_bytes).digest()
+    
+    RETURN key
+END FUNCTION
+
+# Simulate CMB power spectrum data with a specified size
+cmb_data = CALL simulate_cmb_power_spectrum(456456)
+
+# Generate a symmetric key from the simulated CMB data
+key = CALL generate_symmetric_key(cmb_data)
+
+PRINT "Symmetric key:", key
+
+END
